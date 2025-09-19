@@ -62,6 +62,9 @@ $basePath = '/mini-commerce';
 						</a>
 					</li>
 					<?php if ($isLoggedIn): ?>
+						<li class="nav-item me-lg-2"><a class="nav-link" href="<?= $basePath ?>/index.php?action=myOrders"><i class="bi bi-receipt"></i> Mes commandes</a></li>
+					<?php endif; ?>
+					<?php if ($isLoggedIn): ?>
 						<style>
 							.avatar-circle { width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #005A9C, #0d6efd); color: #fff; font-weight: 700; }
 						</style>
