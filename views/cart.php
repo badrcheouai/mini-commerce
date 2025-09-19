@@ -3,49 +3,59 @@
 <div class="container mt-5">
 	<h1 class="mb-4">Mon Panier 🛒</h1>
 
-	<?php if (empty($cartItems)): ?>
-		<div class="alert alert-info">
-			Votre panier est vide. <a href="index.php">Continuez vos achats</a>.
-		</div>
-	<?php else: ?>
-		<table class="table table-hover">
+    <?php if (empty($cartItems)): ?>
+        <div class="alert alert-info d-flex justify-content-between align-items-center">
+            <div>
+                Votre panier est vide.
+            </div>
+            <a href="index.php" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Continuer mes achats</a>
+        </div>
+    <?php else: ?>
+        <table class="table table-hover align-middle">
 			<thead>
 				<tr>
-					<th>Produit</th>
-					<th>Prix</th>
-					<th>Quantité</th>
-					<th>Sous-total</th>
-					<th>Actions</th>
+                    <th class="w-50">Produit</th>
+                    <th class="text-center">Prix</th>
+                    <th class="text-center">Quantité</th>
+                    <th class="text-end">Sous-total</th>
+                    <th class="text-end">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php foreach ($cartItems as $item): ?>
 					<tr>
 						<td>
-							<img src="<?= $basePath ?>/public/images/<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="width: 50px; height: 50px; object-fit: cover;">
-							<?= htmlspecialchars($item['name']) ?>
+                            <div class="d-flex align-items-center">
+                                <img src="<?= $basePath ?>/public/images/<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="rounded me-3" style="width: 56px; height: 56px; object-fit: cover;">
+                                <div>
+                                    <div class="fw-semibold"><?= htmlspecialchars($item['name']) ?></div>
+                                    <small class="text-muted">ID: <?= $item['id'] ?></small>
+                                </div>
+                            </div>
 						</td>
-						<td><?= number_format($item['price'], 2, ',', ' ') ?> DHS</td>
-						<td>
-							<form action="index.php?action=updateCart" method="post" class="d-flex">
-								<input type="hidden" name="product_id" value="<?= $item['id'] ?>">
-								<input type="number" name="quantity" value="<?= $item['quantity'] ?>" class="form-control" style="width: 70px;" min="1">
-								<button type="submit" class="btn btn-sm btn-outline-primary ms-2">OK</button>
-							</form>
-						</td>
-						<td><strong><?= number_format($item['subtotal'], 2, ',', ' ') ?> DHS</strong></td>
-						<td>
-							<a href="index.php?action=removeCart&id=<?= $item['id'] ?>" class="btn btn-sm btn-danger">🗑️</a>
-						</td>
+                        <td class="text-center align-middle"><?= number_format($item['price'], 2, ',', ' ') ?> DHS</td>
+                        <td class="text-center">
+                            <form action="index.php?action=updateCart" method="post" class="d-inline-flex align-items-center justify-content-center">
+                                <input type="hidden" name="product_id" value="<?= $item['id'] ?>">
+                                <input type="number" name="quantity" value="<?= $item['quantity'] ?>" class="form-control form-control-sm text-center" style="width: 80px;" min="1">
+                                <button type="submit" class="btn btn-sm btn-outline-primary ms-2"><i class="bi bi-check-lg"></i></button>
+                            </form>
+                        </td>
+                        <td class="text-end"><strong><?= number_format($item['subtotal'], 2, ',', ' ') ?> DHS</strong></td>
+                        <td class="text-end">
+                            <a href="index.php?action=removeCart&id=<?= $item['id'] ?>" class="btn btn-sm btn-outline-danger" title="Supprimer"><i class="bi bi-trash3"></i></a>
+                        </td>
 					</tr>
 				<?php endforeach; ?>
 			</tbody>
 		</table>
 
-		<div class="text-end">
-			<h3>Total : <?= number_format($total, 2, ',', ' ') ?> DHS</h3>
-			<a href="index.php" class="btn btn-secondary">Continuer mes achats</a>
-			<a href="index.php?action=checkout" class="btn btn-primary">Passer la commande</a>
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="index.php" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Continuer mes achats</a>
+            <div class="text-end">
+                <div class="fs-4 fw-bold">Total : <?= number_format($total, 2, ',', ' ') ?> DHS</div>
+                <a href="index.php?action=checkout" class="btn btn-primary btn-lg mt-2"><i class="bi bi-credit-card-2-front-fill"></i> Passer la commande</a>
+            </div>
 		</div>
 	<?php endif; ?>
 </div>

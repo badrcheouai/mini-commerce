@@ -4,14 +4,15 @@ require_once __DIR__ . '/header.php';
 ?>
 
 <div class="container">
-	<div class="p-5 mb-4 bg-light rounded-3 text-center">
+	<div class="p-5 mb-4 hero text-center">
 		<div class="container-fluid py-5">
-			<h1 class="display-5 fw-bold">Bienvenue au Souk Online</h1>
-			<p class="fs-4">Découvrez les meilleurs produits, directement chez vous.</p>
+			<h1 class="display-5 fw-bold">Bienvenue chez Badr Market</h1>
+			<p class="lead">Des produits de qualité, livrés partout au Maroc.</p>
+			<a href="#products" class="btn btn-primary btn-lg btn-cta mt-3"><i class="bi bi-bag-heart-fill"></i> Voir les produits</a>
 		</div>
 	</div>
 
-	<h2 class="mb-4">Nos Produits</h2>
+	<h2 id="products" class="mb-4">Nos Produits</h2>
 
 	<form method="get" action="index.php" class="row g-3 mb-4 align-items-center">
 		<div class="col-md-4">
@@ -32,15 +33,15 @@ require_once __DIR__ . '/header.php';
 		<?php endif; ?>
 	</form>
 
-	<div class="row">
+	<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
 		<?php if (empty($products)): ?>
 			<div class="col-12">
 				<div class="alert alert-info">Aucun produit trouvé.</div>
 			</div>
 		<?php else: ?>
 			<?php foreach ($products as $product): ?>
-			<div class="col-md-4 col-lg-3 mb-4">
-				<div class="card h-100 shadow-sm">
+			<div class="col">
+				<div class="card h-100 shadow-sm border-0">
 					<a href="index.php?action=show&id=<?= $product['id'] ?>">
 						<img src="<?= $basePath ?>/public/images/<?= htmlspecialchars($product['image']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>">
 					</a>
@@ -50,9 +51,11 @@ require_once __DIR__ . '/header.php';
 								<?= htmlspecialchars($product['name']) ?>
 							</a>
 						</h5>
-						<p class="card-text text-muted flex-grow-1"><?= htmlspecialchars(substr($product['description'], 0, 50)) ?>...</p>
-						<p class="card-text fs-5 fw-bold text-end"><?= number_format($product['price'], 2, ',', ' ') ?> DHS</p>
-						<a href="index.php?action=addToCart&id=<?= $product['id'] ?>" class="btn btn-primary mt-auto">Ajouter au panier</a>
+					<p class="card-text text-muted small flex-grow-1"><?= htmlspecialchars(substr($product['description'], 0, 70)) ?>...</p>
+					<p class="card-text fs-5 fw-bold text-end text-primary"><?= number_format($product['price'], 2, ',', ' ') ?> DHS</p>
+					<a href="index.php?action=addToCart&id=<?= $product['id'] ?>" class="btn btn-primary mt-auto fw-bold">
+						<i class="bi bi-cart-plus-fill"></i> Ajouter
+					</a>
 					</div>
 				</div>
 			</div>
