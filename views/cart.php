@@ -50,7 +50,6 @@
 	<?php endif; ?>
 </div>
 
- </body>
- </html>
+<?php require_once __DIR__ . '/footer.php'; ?>
 
 
