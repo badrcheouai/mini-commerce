@@ -46,6 +46,12 @@ switch ($action) {
 		$controller->placeOrder();
 		break;
 
+	case 'myOrders':
+		require_once __DIR__ . '/controllers/OrderController.php';
+		$controller = new OrderController();
+		$controller->myOrders();
+		break;
+
 	case 'register':
 		require_once __DIR__ . '/controllers/UserController.php';
 		$controller = new UserController();
