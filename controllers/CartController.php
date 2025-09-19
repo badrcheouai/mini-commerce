@@ -7,6 +7,14 @@ class CartController {
 			session_start();
 		}
 
+		// Require login before adding to cart
+		if (!isset($_SESSION['user_id'])) {
+			$productId = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+			$next = 'index.php?action=addToCart&id=' . $productId;
+			header('Location: index.php?action=login&next=' . urlencode($next));
+			exit();
+		}
+
 		$productId = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 		if ($productId <= 0) {
 			header('Location: index.php');
