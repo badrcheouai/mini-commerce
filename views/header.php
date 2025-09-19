@@ -5,6 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 $cartItemCount = !empty($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
 $isLoggedIn = isset($_SESSION['user_id']);
 $userName = $_SESSION['user_name'] ?? '';
+$userInitial = strtoupper(mb_substr($userName, 0, 1));
 $basePath = '/mini-commerce';
 ?>
 <!DOCTYPE html>
@@ -61,8 +62,14 @@ $basePath = '/mini-commerce';
 						</a>
 					</li>
 					<?php if ($isLoggedIn): ?>
-						<li class="nav-item"><span class="navbar-text me-3">Bienvenue, <?= htmlspecialchars($userName) ?></span></li>
-						<li class="nav-item"><a class="nav-link" href="<?= $basePath ?>/index.php?action=logout">Déconnexion</a></li>
+						<style>
+							.avatar-circle { width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #005A9C, #0d6efd); color: #fff; font-weight: 700; }
+						</style>
+						<li class="nav-item d-flex align-items-center">
+							<span class="avatar-circle me-2"><?= htmlspecialchars($userInitial) ?></span>
+							<span class="navbar-text">Bienvenue, <?= htmlspecialchars($userName) ?></span>
+						</li>
+						<li class="nav-item ms-2"><a class="nav-link" href="<?= $basePath ?>/index.php?action=logout">Déconnexion</a></li>
 					<?php else: ?>
 					<li class="nav-item me-lg-2"><a class="nav-link" href="<?= $basePath ?>/index.php?action=login"><i class="bi bi-box-arrow-in-right"></i> Connexion</a></li>
 					<li class="nav-item"><a class="btn btn-primary" href="<?= $basePath ?>/index.php?action=register"><i class="bi bi-person-plus-fill"></i> Créer un compte</a></li>
@@ -72,6 +79,14 @@ $basePath = '/mini-commerce';
 		</div>
 	</nav>
 </header>
+
+<?php if ($isLoggedIn): ?>
+<div class="bg-primary bg-gradient text-white py-2">
+	<div class="container d-flex align-items-center justify-content-center small">
+		<span><i class="bi bi-stars"></i> Heureux de vous revoir, <strong><?= htmlspecialchars($userName) ?></strong> !</span>
+	</div>
+</div>
+<?php endif; ?>
 
 <main class="main-content py-5">
 

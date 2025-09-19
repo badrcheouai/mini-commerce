@@ -73,6 +73,24 @@ class OrderController {
 
 		die('Une erreur est survenue lors de la création de la commande.');
 	}
+
+	public function myOrders() {
+		if (session_status() == PHP_SESSION_NONE) { session_start(); }
+		if (empty($_SESSION['user_email'])) {
+			header('Location: index.php?action=login&next=' . urlencode('index.php?action=myOrders'));
+			exit();
+		}
+
+		global $pdo;
+		$orderModel = new Order($pdo);
+		$orders = $orderModel->getOrdersByEmail($_SESSION['user_email']);
+		$orderItemsMap = [];
+		foreach ($orders as $o) {
+			$orderItemsMap[$o['id']] = $orderModel->getOrderItems((int) $o['id']);
+		}
+
+		require_once __DIR__ . '/../views/my_orders.php';
+	}
 }
 
 

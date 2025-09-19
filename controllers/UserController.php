@@ -44,7 +44,13 @@ class UserController {
 		if ($user && password_verify($password, $user['password'])) {
 			$_SESSION['user_id'] = (int) $user['id'];
 			$_SESSION['user_name'] = $user['name'];
-			header('Location: index.php');
+			$_SESSION['user_email'] = $user['email'];
+			$next = $_GET['next'] ?? $_POST['next'] ?? '';
+			if (!empty($next)) {
+				header('Location: ' . $next);
+			} else {
+				header('Location: index.php');
+			}
 			exit();
 		}
 
@@ -53,7 +59,7 @@ class UserController {
 
 	public function logout() {
 		if (session_status() == PHP_SESSION_NONE) { session_start(); }
-		session_destroy();
+		unset($_SESSION['user_id'], $_SESSION['user_name'], $_SESSION['user_email']);
 		header('Location: index.php');
 		exit();
 	}

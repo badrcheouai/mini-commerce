@@ -5,7 +5,10 @@
 			<div class="card shadow-sm border-0">
 				<div class="card-body p-4 p-md-5">
 					<h3 class="mb-4 text-center"><i class="bi bi-box-arrow-in-right"></i> Connexion</h3>
-					<form action="index.php?action=authenticate" method="post">
+                    <form action="index.php?action=authenticate" method="post">
+                        <?php $next = $_GET['next'] ?? ''; if (!empty($next)): ?>
+                            <input type="hidden" name="next" value="<?= htmlspecialchars($next) ?>">
+                        <?php endif; ?>
 						<div class="mb-3">
 							<label class="form-label">Email</label>
 							<div class="input-group">

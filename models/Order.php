@@ -42,6 +42,18 @@ class Order {
 			return false;
 		}
 	}
+
+	public function getOrdersByEmail(string $email) {
+		$stmt = $this->pdo->prepare("SELECT * FROM orders WHERE customer_email = :email ORDER BY order_date DESC");
+		$stmt->execute([':email' => $email]);
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function getOrderItems(int $orderId) {
+		$stmt = $this->pdo->prepare("SELECT oi.*, p.name, p.image FROM order_items oi INNER JOIN products p ON p.id = oi.product_id WHERE oi.order_id = :oid");
+		$stmt->execute([':oid' => $orderId]);
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
 }
 
 
