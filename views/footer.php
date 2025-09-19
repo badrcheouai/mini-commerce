@@ -23,7 +23,7 @@
 		</div>
 	</div>
 	<div class="text-center p-3 mt-4" style="background-color: rgba(0, 0, 0, 0.2);">
-		&copy; <?= date('Y') ?> Badr Market. Tous droits réservés.
+		&copy; <?= date('Y') ?> Badr Market..
 	</div>
 </footer>
 

@@ -45,6 +45,14 @@ class OrderController {
 			'address' => $_POST['address'] ?? '',
 		];
 
+		// If the user is logged in, prefer the session email (so orders appear in "Mes commandes")
+		if (!empty($_SESSION['user_email'])) {
+			$customerDetails['email'] = $_SESSION['user_email'];
+			if (!empty($_SESSION['user_name'])) {
+				$customerDetails['name'] = $_SESSION['user_name'];
+			}
+		}
+
 		$productModel = new Product($pdo);
 		$cartItems = [];
 		$total = 0;
